@@ -52,7 +52,6 @@ def main(argv=None):
     f.close()
     del(f)
     os.system("plutil -convert xml1 '%s'" % path+NAME )
-    #time.sleep(1)
     f= os.popen("echo `date +%z`")
     utc = f.readline()
     f.close()
@@ -87,7 +86,7 @@ def comp_now(date, ahead, utc):
     return bool(date < now)
     
 def get_date(seconds, utc):
-    start = datetime(2001, 1, 1, 1, 0, 0)
+    start = datetime(2001, 1, 1, 0, 0, 0)
     u = utc * 3600
     ret = start + timedelta(seconds= abs(seconds) + u)
     return ret
