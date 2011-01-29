@@ -35,9 +35,13 @@ class Usage(Exception):
 
 def main(argv=None):
     path = argv[-1]
-    lookahead = 3
+    lookahead = 1
+    status = 1
     if len(argv) > 1:
-        lookahead = int(argv[0])
+        if argv[0] == "-o":
+            status = 2
+        else:
+            lookahead = int(argv[0])
     
     if os.path.isdir(path):
         if os.path.basename(path):
@@ -59,15 +63,15 @@ def main(argv=None):
     u = format_utc(utc)
     p = plistlib.Plist.fromFile(path+NAME)
     l = getClasses("Reminder", p["$objects"])
-    l = filter_list(l, u, lookahead)
+    l = filter_list(l, u, status, lookahead)
     l.sort()
     for o in l:
         print "[%s] %s - %s" % (o[1], o[2], o[3])
 
-def filter_list(l, utc, args):
+def filter_list(l, utc, status, args):
     ret = []
     for o in l:
-        if o.status == 1:
+        if o.status == status:
             dt = get_date(o.dateDue, utc)
             if comp_now(dt, args, utc):
                 ret.append(format(o.name, dt))

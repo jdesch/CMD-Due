@@ -1,7 +1,8 @@
 This script opens the iphone app "due"'s sync information (found in dropbox), and outputs the reminders to the command line. Works well for GeekTools information
 usage is:
-	"python handler.py [lookahead] folder"
+	"python handler.py [lookahead|-o] folder"
 	- lookahead is the number of days ahead to pull reminders from
+	- -o targets only tasks that are over due, do not use in conjunction with lookahead
 	- folder is the absolute path to the "Due App" folder ie. '/Users/{USERNAME}/Dropbox/Due App'
 	
 	note: as the due app folder has a space in it, you must wrap quotes around the folder path
