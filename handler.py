@@ -19,7 +19,10 @@ from subprocess import call
 from Foundation import NSMutableDictionary
 
 help_message = '''
-The help message goes here.
+usage python handler.py [lookahead|-o] folder
+	- lookahead is the number of days ahead to pull reminders from
+	- -o targets only tasks that are over due, do not use in conjunction with lookahead
+	- folder is the absolute path to the "Due App" folder ie. '/Users/{USERNAME}/Dropbox/Due App'
 '''
 
 FNAME = "Sync.dueappgz"
@@ -86,7 +89,6 @@ def format(name, date):
 def comp_now(date, ahead, utc):
     now = datetime.now()
     now = now + timedelta(days= ahead, seconds= utc*3600)
-    #print "comp- %s, now- %s" %(date, now)
     return bool(date < now)
     
 def get_date(seconds, utc):
